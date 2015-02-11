@@ -25,7 +25,7 @@ message = client.messages.create(body=(url, "Index of /2015"),
 while True:
 	req = requests.get(url)
 
-	if r.status_code != 404:
+	if req.status_code != 404:
 		print message.sid
 		break
 		

@@ -18,14 +18,15 @@ account_sid = "{{ account_sid }}"
 auth_token = "{{ auth_token }}"
 client = TwilioRestClient(account_sid, auth_token)
 
-while True:
-	resp = requests.get(url)
+if __name__ == '__main__':
+	while True:
+		resp = requests.get(url)
 
-	if resp.status_code != 404:
-		message = client.messages.create(body=(url + " Index of /2015"),
-			to="{{ recipient }}",
-			from_="{{ sender }}")
-		print message.sid
-		break
+		if resp.status_code != 404:
+			message = client.messages.create(body=(url + " Index of /2015"),
+				to="{{ recipient }}",
+				from_="{{ sender }}")
+			print message.sid
+			break
 		
-	time.sleep(3600)
+		time.sleep(3600)

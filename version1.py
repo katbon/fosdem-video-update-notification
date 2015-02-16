@@ -1,5 +1,5 @@
 # Katherine Bonsell / katbon
-# 2015.2.11
+# 2015.2.16
 
 """
 fosdem-video-update-notification Version 1
@@ -18,14 +18,13 @@ account_sid = "{{ account_sid }}"
 auth_token = "{{ auth_token }}"
 client = TwilioRestClient(account_sid, auth_token)
 
-message = client.messages.create(body=(url, "Index of /2015"),
-	to="{{ recipient }}",
-	from_="{{ sender }}")
-
 while True:
-	req = requests.get(url)
+	resp = requests.get(url)
 
-	if req.status_code != 404:
+	if resp.status_code != 404:
+		message = client.messages.create(body=(url + " Index of /2015"),
+			to="{{ recipient }}",
+			from_="{{ sender }}")
 		print message.sid
 		break
 		
